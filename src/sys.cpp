@@ -3,7 +3,6 @@ using namespace std;
 
 // Print receipt function (fancy box)
 // We pass customer name, quantities for each item, prices, subtotal, discount, tax, final total.
-// test
 void printReceipt(char custName[], int q1, int q2, int q3, int q4, int q5, int q6,
                   int q7, int q8, int q9, int q10, int q11, int q12,
                   int p1, int p2, int p3, int p4, int p5, int p6,
