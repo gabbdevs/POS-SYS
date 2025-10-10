@@ -1,10 +1,9 @@
 #include <iostream>
 using namespace std;
 
-// Print receipt function (fancy box)
-// We pass customer name, quantities for each item, prices, subtotal, discount, tax, final total.
-// test
-void printReceipt(char custName[], int q1, int q2, int q3, int q4, int q5, int q6,
+// Receipt
+// P for price, Q for quantity
+void printReceipt(string customerName, int q1, int q2, int q3, int q4, int q5, int q6,
                   int q7, int q8, int q9, int q10, int q11, int q12,
                   int p1, int p2, int p3, int p4, int p5, int p6,
                   int p7, int p8, int p9, int p10, int p11, int p12,
@@ -14,7 +13,7 @@ void printReceipt(char custName[], int q1, int q2, int q3, int q4, int q5, int q
     cout << "|                 C++offee Receipt                |\n";
     cout << "+-------------------------------------------------+\n";
     cout << "| Customer: ";
-    cout << custName;
+    cout << customerName;
     // pad remaining to keep box look (simple)
     cout << "\n+-------------------------------------------------+\n";
     cout << "| Item                      Qty    Total (PHP)    |\n";
@@ -161,20 +160,21 @@ int main()
     int stock_darkroast = 10, stock_espresso = 10;
     int stock_brownies = 10, stock_blueberry = 10, stock_peach = 10, stock_apple = 10, stock_cookie = 10, stock_ramen = 10;
 
-    // Prices (as agreed)
+    // Prices
     int price_javachip = 100, price_capuccino = 120, price_latte = 110, price_strawberry = 115;
     int price_darkroast = 105, price_espresso = 90;
     int price_brownies = 70, price_blueberry = 80, price_peach = 75, price_apple = 75, price_cookie = 50, price_ramen = 95;
 
     int mainLoop = 1;
+
     do
     {
         cout << "\n===== Welcome to C++offee POS System =====\n";
         cout << "Are you:\n1. Employee\n2. Customer\nChoice: ";
-        int userType;
-        cin >> userType;
+        int userChoice;
+        cin >> userChoice;
 
-        if (userType == 1)
+        if (userChoice == 1)
         {
             // Employee mode with password retry (3 attempts)
             int correctPassword = 1234;
@@ -202,14 +202,15 @@ int main()
             }
             else
             {
-                int empLoop = 1;
-                while (empLoop == 1)
+                //Inventory
+                int inventory = 1;
+                while (inventory == 1)
                 {
                     cout << "\n--- Inventory Management ---\n";
-                    cout << "1. Create/Add Stock\n2. Retrieve/View Stock\n3. Update Stock (set exact values)\n4. Delete Stock (set to 0)\n5. Exit to Main\nChoice: ";
-                    int choice;
-                    cin >> choice;
-                    if (choice == 1)
+                    cout << "1. Create\n2. Retrieve\n3. Update Stock\n4. Delete Stock\n5. Exit to Main\nChoice: ";
+                    int employeeChoice;
+                    cin >> employeeChoice;
+                    if (employeeChoice == 1)
                     {
                         int add;
                         cout << "Add to Javascript (Javachip): ";
@@ -249,23 +250,23 @@ int main()
                         cin >> add;
                         stock_ramen += add;
                     }
-                    else if (choice == 2)
+                    else if (employeeChoice == 2)
                     {
                         cout << "\n--- Current Inventory ---\n";
-                        cout << "Javascript (Javachip): " << stock_javachip << "\n";
-                        cout << "C#appuccino (Capuccino): " << stock_capuccino << "\n";
-                        cout << "Cout Latte (Caramel Latte): " << stock_latte << "\n";
-                        cout << "C-trawberry Latte: " << stock_strawberry << "\n";
-                        cout << "Double Dark Roast: " << stock_darkroast << "\n";
-                        cout << "Compilepresso (Espresso): " << stock_espresso << "\n";
-                        cout << "JavaBeans Brownies: " << stock_brownies << "\n";
-                        cout << "Blueberry Py: " << stock_blueberry << "\n";
-                        cout << "Peach Mango Py: " << stock_peach << "\n";
-                        cout << "Apple Py: " << stock_apple << "\n";
-                        cout << "Byte-sized Cookie: " << stock_cookie << "\n";
-                        cout << "RAM-en Noodles: " << stock_ramen << "\n";
+                        cout << "Javascript (Javachip): " << stock_javachip << endl;
+                        cout << "C#appuccino (Capuccino): " << stock_capuccino << endl;
+                        cout << "Cout Latte (Caramel Latte): " << stock_latte << endl;
+                        cout << "C-trawberry Latte: " << stock_strawberry << endl;
+                        cout << "Double Dark Roast: " << stock_darkroast << endl;
+                        cout << "Compilepresso (Espresso): " << stock_espresso << endl;
+                        cout << "JavaBeans Brownies: " << stock_brownies << endl;
+                        cout << "Blueberry Py: " << stock_blueberry << endl;
+                        cout << "Peach Mango Py: " << stock_peach << endl;
+                        cout << "Apple Py: " << stock_apple << endl;
+                        cout << "Byte-sized Cookie: " << stock_cookie << endl;
+                        cout << "RAM-en Noodles: " << stock_ramen << endl;
                     }
-                    else if (choice == 3)
+                    else if (employeeChoice == 3)
                     {
                         int ns;
                         cout << "Set new stock for Javascript (Javachip): ";
@@ -305,7 +306,7 @@ int main()
                         cin >> ns;
                         stock_ramen = ns;
                     }
-                    else if (choice == 4)
+                    else if (employeeChoice == 4)
                     {
                         stock_javachip = 0;
                         stock_capuccino = 0;
@@ -321,27 +322,28 @@ int main()
                         stock_ramen = 0;
                         cout << "All stock cleared!\n";
                     }
-                    else if (choice == 5)
+                    else if (employeeChoice == 5)
                     {
-                        empLoop = 0;
+                        inventory = 0;
                     }
                     else
                     {
                         cout << "Invalid choice.\n";
                     }
-                } // end employee loop
+                } // End inventory loop
             }
-        } // end employee branch
+        } // End employee branch
 
-        else if (userType == 2)
+        else if (userChoice == 2)
         {
-            // Customer flow
-            char customerName[50];
-            cout << "Enter Customer Name (one word): ";
-            cin >> customerName;
+            string customerName;
+            cout << "Enter Customer Name: ";
+            cin.ignore();
+            getline(cin, customerName);
 
-            // ordered quantities (start at 0)
+            // ordered quantities
             int oq1 = 0, oq2 = 0, oq3 = 0, oq4 = 0, oq5 = 0, oq6 = 0, oq7 = 0, oq8 = 0, oq9 = 0, oq10 = 0, oq11 = 0, oq12 = 0;
+            
             int ordering = 1;
             while (ordering == 1)
             {
@@ -362,6 +364,7 @@ int main()
                 cout << "12) RAM-en Noodles - PHP " << price_ramen << "   [" << stock_ramen << " left]\n";
                 cout << "13) Proceed to Payment\n";
                 cout << "Choice: ";
+                
                 int menuChoice;
                 cin >> menuChoice;
 
@@ -370,6 +373,13 @@ int main()
                     cout << "How many? ";
                     int qty;
                     cin >> qty;
+                    if (cin.fail()) 
+                    {
+                        cin.clear();              // clear fail state
+                        cin.ignore(1000, '\n');   // ignore invalid input
+                        cout << "Invalid input. Please enter a number.\n";
+                        continue;                 // goes back to the start of the loop
+                    }
                     if (qty <= 0)
                     {
                         cout << "Enter a positive quantity.\n";
